@@ -1,0 +1,58 @@
+{
+  "hash": "dbb942ef",
+  "configHash": "8cf8ce24",
+  "lockfileHash": "861ce59d",
+  "browserHash": "556a082b",
+  "optimized": {
+    "@angular/core": {
+      "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "281d1117",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "91eb6f8f",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "727751c5",
+      "needsInterop": false
+    },
+    "rxjs": {
+      "src": "../../../../../node_modules/rxjs/dist/esm5/index.js",
+      "file": "rxjs.js",
+      "fileHash": "503e4373",
+      "needsInterop": false
+    },
+    "socket.io-client": {
+      "src": "../../../../../node_modules/socket.io-client/build/esm/index.js",
+      "file": "socket__io-client.js",
+      "fileHash": "caa97d8a",
+      "needsInterop": false
+    },
+    "video.js": {
+      "src": "../../../../../node_modules/video.js/dist/video.es.js",
+      "file": "video__js.js",
+      "fileHash": "15a952d2",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-IGVVZ3WO": {
+      "file": "chunk-IGVVZ3WO.js"
+    },
+    "chunk-GHWMFKGM": {
+      "file": "chunk-GHWMFKGM.js"
+    },
+    "chunk-FDESMX7I": {
+      "file": "chunk-FDESMX7I.js"
+    },
+    "chunk-4MWRP73S": {
+      "file": "chunk-4MWRP73S.js"
+    }
+  }
+}

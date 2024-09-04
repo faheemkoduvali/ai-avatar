@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import videojs from 'video.js';
 import { VideoControlService } from '../service/video-control.service';
 import { Subscription } from 'rxjs';
@@ -8,13 +8,11 @@ import { Subscription } from 'rxjs';
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.css']
 })
-export class ViewerComponent implements OnInit {
+export class ViewerComponent implements OnInit, OnDestroy {
   @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
   player!: ReturnType<typeof videojs> | any;
 
   private playStateSubscription: Subscription | undefined;
-
-  tracks : any[] = [];
 
   constructor(private videoControlService: VideoControlService, private cdr: ChangeDetectorRef
   ) { }
@@ -22,7 +20,7 @@ export class ViewerComponent implements OnInit {
 
   ngOnInit() {
     this.player = videojs(this.videoPlayer.nativeElement, {
-      controls: false,
+      controls: true,
       autoplay: false,
       preload: false,
       fluid: true, // Make the player responsive to fill the screen
@@ -43,18 +41,15 @@ export class ViewerComponent implements OnInit {
         label: 'French'
       }]
     });
-
-    this.tracks = this.player.textTracks();
     debugger;
 
     this.playStateSubscription = this.videoControlService.playState$.subscribe((shouldPlay: boolean) => {
-      this.cdr.detectChanges();
       const video: HTMLVideoElement = this.videoPlayer.nativeElement;
       if (shouldPlay) {
-        video.play().then(() => console.log('Video played')).catch(err => console.error('Error playing video', err));
+        video.play().then(() => console.log('Viewer video playing')).catch(err => console.error('Error playing video', err));
       } else {
         video.pause();
-        console.log('Video paused');
+        console.log('Viewer video paused');
       }
     });
   }
@@ -89,7 +84,10 @@ export class ViewerComponent implements OnInit {
       }
     }
   }
-  ngOnDestroy() {
+  ngOnDestroy(): void {
+    if (this.player) {
+      this.player.dispose();
+    }
     if (this.playStateSubscription) {
       this.playStateSubscription.unsubscribe();
     }
