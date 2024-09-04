@@ -14,7 +14,7 @@ export class VideoControlService {
 
   constructor() {
     // Connect to the WebSocket server
-    this.socket = io('http://localhost:3005'); // Replace with your WebSocket server URL
+    this.socket = io('http://172.18.200.117:3005'); // Replace with your WebSocket server URL
 
     // Listen for WebSocket play/pause commands
     this.socket.on('video-control', (command: string) => {

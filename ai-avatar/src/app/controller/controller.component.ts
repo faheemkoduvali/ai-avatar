@@ -16,15 +16,16 @@ export class ControllerComponent {
 
   ngOnInit(): void {
     // Initialize Video.js player
-    this.player = videojs(this.videoPlayer.nativeElement, {
-      controls: true,
-      autoplay: false,
-      preload: 'auto'
-    });
+    // this.player = videojs(this.videoPlayer.nativeElement, {
+    //   controls: true,
+    //   autoplay: false,
+    //   preload: 'auto'
+    // });
   }
 
   // Called when the admin plays the video
   playVideo() {
+    debugger;
     this.player.play();
     this.videoControlService.emitPlayState(true);  // Emit "play" to WebSocket
   }

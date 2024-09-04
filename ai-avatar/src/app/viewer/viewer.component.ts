@@ -19,28 +19,28 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.player = videojs(this.videoPlayer.nativeElement, {
-      controls: true,
-      autoplay: false,
-      preload: false,
-      fluid: true, // Make the player responsive to fill the screen
-      controlBar: {
-        playToggle: false,
-        fullscreenToggle: true
-      },
-      tracks: [{
-        kind: 'subtitles',
-        src: 'http://localhost:3000/subtitles-en.vtt',
-        srclang: 'en',
-        label: 'English'
-      },
-      {
-        kind: 'subtitles',
-        src: 'http://localhost:3000/subtitles-fn.vtt',
-        srclang: 'en',
-        label: 'French'
-      }]
-    });
+    // this.player = videojs(this.videoPlayer.nativeElement, {
+    //   controls: true,
+    //   autoplay: false,
+    //   preload: false,
+    //   fluid: true, // Make the player responsive to fill the screen
+    //   controlBar: {
+    //     playToggle: false,
+    //     fullscreenToggle: true
+    //   },
+    //   tracks: [{
+    //     kind: 'subtitles',
+    //     src: 'http://localhost:3000/subtitles-en.vtt',
+    //     srclang: 'en',
+    //     label: 'English'
+    //   },
+    //   {
+    //     kind: 'subtitles',
+    //     src: 'http://localhost:3000/subtitles-fn.vtt',
+    //     srclang: 'en',
+    //     label: 'French'
+    //   }]
+    // });
     debugger;
 
     this.playStateSubscription = this.videoControlService.playState$.subscribe((shouldPlay: boolean) => {
