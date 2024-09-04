@@ -1,0 +1,15 @@
+<video #videoPlayer id="my-video" muted class="video-js vjs-default-skin">
+
+    <source src="http://localhost:3000/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="track-controls">
+    <button (click)="switchSubtitleTrack('English')">English Subtitles</button>
+    <button (click)="switchSubtitleTrack('French')">French Subtitles</button>
+
+    <label for="subtitleSelect">Choose Subtitle:</label>
+    <select id="subtitleSelect" (ngModelChange)="switchSubtitleTrack($any($event.target).value)">
+      <option *ngFor="let tracks in player.textTracks()" value>{{tracks.label}}</option>
+      <option value="off">Off</option>
+    </select>
+  </div>
