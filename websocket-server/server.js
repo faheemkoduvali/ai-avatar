@@ -18,6 +18,10 @@ io.on('connection', (socket) => {
     io.emit('video-control', command);
   });
 
+  socket.on('seek-update', (currentTime) => {
+    io.emit('seek-update', currentTime);
+  });
+
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
   });
@@ -25,5 +29,5 @@ io.on('connection', (socket) => {
 
 const PORT = 3005;
 server.listen(PORT, () => {
-  console.log(`WebSocket server running on http://172.18.200.117:${PORT}`);
+  console.log(`WebSocket server running on http://192.168.0.106:${PORT}`);
 });

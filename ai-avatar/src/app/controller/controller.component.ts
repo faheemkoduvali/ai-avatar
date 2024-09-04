@@ -16,25 +16,36 @@ export class ControllerComponent {
 
   ngOnInit(): void {
     // Initialize Video.js player
-    // this.player = videojs(this.videoPlayer.nativeElement, {
-    //   controls: true,
-    //   autoplay: false,
-    //   preload: 'auto'
-    // });
+    this.player = videojs(this.videoPlayer.nativeElement, {
+      controls: true,
+      autoplay: false,
+      preload: 'auto',
+      controlBar: {
+        fullscreenToggle: true, // Keep fullscreen toggle
+        playToggle: true, // Show play/pause button
+        currentTimeDisplay: true, // Show current time
+        durationDisplay: true, // Show duration
+        progressControl: true, // Show progress bar
+      },
+      fluid: true 
+    });
+    this.player.on('play', () => {
+      const video = this.player;
+      video.play();
+      this.videoControlService.emitPlayState(true);  // Emit "play" to WebSocket
+    });
+
+    this.player.on('pause', () => {
+      this.player.pause();
+      this.videoControlService.emitPlayState(false);  // Emit "pause" to WebSocket
+    });
+
+    this.player.on('timeupdate', () => {
+      const currentTime = this.player.currentTime();
+      this.videoControlService.emitCurrentTime(currentTime);
+    });
   }
 
-  // Called when the admin plays the video
-  playVideo() {
-    debugger;
-    this.player.play();
-    this.videoControlService.emitPlayState(true);  // Emit "play" to WebSocket
-  }
-
-  // Called when the admin pauses the video
-  pauseVideo() {
-    this.player.pause();
-    this.videoControlService.emitPlayState(false);  // Emit "pause" to WebSocket
-  }
 
   ngOnDestroy(): void {
     if (this.player) {

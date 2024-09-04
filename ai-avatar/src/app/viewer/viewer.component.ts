@@ -2,46 +2,53 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy 
 import videojs from 'video.js';
 import { VideoControlService } from '../service/video-control.service';
 import { Subscription } from 'rxjs';
+import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-viewer',
   templateUrl: './viewer.component.html',
-  styleUrls: ['./viewer.component.css']
+  styleUrls: ['./viewer.component.css'],
+  standalone: true
 })
 export class ViewerComponent implements OnInit, OnDestroy {
   @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
   player!: ReturnType<typeof videojs> | any;
 
   private playStateSubscription: Subscription | undefined;
+  private seekUpdateSubscription!: Subscription;
 
-  constructor(private videoControlService: VideoControlService, private cdr: ChangeDetectorRef
+  ipAddress: string = '';
+
+  constructor(private videoControlService: VideoControlService, private http: HttpClient
   ) { }
 
 
   ngOnInit() {
-    // this.player = videojs(this.videoPlayer.nativeElement, {
-    //   controls: true,
-    //   autoplay: false,
-    //   preload: false,
-    //   fluid: true, // Make the player responsive to fill the screen
-    //   controlBar: {
-    //     playToggle: false,
-    //     fullscreenToggle: true
-    //   },
-    //   tracks: [{
-    //     kind: 'subtitles',
-    //     src: 'http://localhost:3000/subtitles-en.vtt',
-    //     srclang: 'en',
-    //     label: 'English'
-    //   },
-    //   {
-    //     kind: 'subtitles',
-    //     src: 'http://localhost:3000/subtitles-fn.vtt',
-    //     srclang: 'en',
-    //     label: 'French'
-    //   }]
-    // });
-    debugger;
+    this.loadIpAddress();
+    this.player = videojs(this.videoPlayer.nativeElement, {
+      controls: true,
+      autoplay: false,
+      preload: false,
+      fluid: true, 
+      tracks: [{
+        kind: 'subtitles',
+        src: 'http://192.168.0.106:3000/subtitles-en.vtt',
+        srclang: 'en',
+        label: 'English'
+      },
+      {
+        kind: 'subtitles',
+        src: 'http://192.168.0.106:3000/subtitles-fn.vtt',
+        srclang: 'en',
+        label: 'French'
+      }],
+      controlBar: {
+        volumePanel: false, 
+        playToggle: false,
+        preload: false
+      }
+    });
 
     this.playStateSubscription = this.videoControlService.playState$.subscribe((shouldPlay: boolean) => {
       const video: HTMLVideoElement = this.videoPlayer.nativeElement;
@@ -52,24 +59,26 @@ export class ViewerComponent implements OnInit, OnDestroy {
         console.log('Viewer video paused');
       }
     });
+
+    this.videoControlService.listenToSeekUpdates((currentTime: number) => {
+      debugger
+      // Update the current time only if the difference is significant to avoid rapid seeks
+      const currentViewerTime = this.player.currentTime();
+      if (Math.abs(currentViewerTime - currentTime) > 0.5) {
+        this.player.currentTime(currentTime);
+      }
+    });
   }
 
+  loadIpAddress(): void {
+    debugger
+    this.http.get('../../../../../projectSettings.json', { responseType: 'text' })  // Fetch as text
+      .subscribe(
+        data => this.ipAddress = data,  // Assign the IP address
+        error => console.error('Error loading the IP address text file', error)
+      );
+  }
 
-
-  // changeSubtitle(event: Event) {
-  //   const video: HTMLVideoElement = this.videoPlayer.nativeElement;
-  //   const selectedIndex = (event.target as HTMLSelectElement).value;
-
-  //   // Disable all tracks
-  //   for (let i = 0; i < video.textTracks.length; i++) {
-  //     video.textTracks[i].mode = 'disabled';
-  //   }
-
-  //   // Enable the selected track
-  //   if (selectedIndex !== 'off') {
-  //     video.textTracks[parseInt(selectedIndex)].mode = 'showing';
-  //   }
-  // }
   switchSubtitleTrack(trackLabel: string) {
     debugger
     const video = this.player;
@@ -90,6 +99,9 @@ export class ViewerComponent implements OnInit, OnDestroy {
     }
     if (this.playStateSubscription) {
       this.playStateSubscription.unsubscribe();
+    }
+    if (this.seekUpdateSubscription) {
+      this.seekUpdateSubscription.unsubscribe();
     }
   }
 
