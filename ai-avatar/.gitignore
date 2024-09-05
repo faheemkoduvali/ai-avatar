@@ -1,0 +1,84 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Dependency directories
+bower_components/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.*.local
+
+# Angular specific files
+.angular/
+.angular-cache/
+.angular-cli.json
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Optional npm cache directory
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# Optional yarn cache directory
+.yarn-cache/
+
+# Optional test coverage
+*.lcov
+*.nunit
+*.junit
+*.coverage
+*.test
+
+# Optional IDE files
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# Optional package lock file (if using yarn, you might want to exclude this)
+package-lock.json
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS specific files
+*.log
+*.pid
+*.seed
+*.pid.lock
+*.gz
+*.zip
+
+# JetBrains IDEs
+.idea/
+
+# WebStorm
+.webstorm/
+
+# npm package files
+package-lock.json
