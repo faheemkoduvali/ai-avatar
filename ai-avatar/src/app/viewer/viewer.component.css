@@ -1,0 +1,28 @@
+/* Reset body margin, padding, and overflow */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent any scrolling */
+    height: 100%;
+  }
+  
+  /* Video container should take the full viewport without causing scrollbars */
+  .video-container {
+    position: absolute; /* Ensure it covers the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrollbars */
+  }
+  
+  /* Video element settings */
+  #my-video {
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    object-fit: cover; /* Cover the container */
+    display: block; /* Prevent inline block issues */
+    margin: 0;
+    padding: 0;
+  }
+  

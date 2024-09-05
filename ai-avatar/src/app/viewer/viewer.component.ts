@@ -20,12 +20,12 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   ipAddress: string = '';
 
-  constructor(private videoControlService: VideoControlService, private http: HttpClient
+  constructor(private videoControlService: VideoControlService
   ) { }
 
 
   ngOnInit() {
-    this.loadIpAddress();
+    // this.loadIpAddress();
     this.player = videojs(this.videoPlayer.nativeElement, {
       controls: true,
       autoplay: false,
@@ -33,20 +33,20 @@ export class ViewerComponent implements OnInit, OnDestroy {
       fluid: true, 
       tracks: [{
         kind: 'subtitles',
-        src: 'http://192.168.0.106:3000/subtitles-en.vtt',
+        src: 'http://192.168.0.105:3000/subtitles-en.vtt',
         srclang: 'en',
         label: 'English'
       },
       {
         kind: 'subtitles',
-        src: 'http://192.168.0.106:3000/subtitles-fn.vtt',
+        src: 'http://192.168.0.105:3000/subtitles-fn.vtt',
         srclang: 'en',
         label: 'French'
       }],
       controlBar: {
         volumePanel: false, 
         playToggle: false,
-        preload: false
+        preload: true
       }
     });
 
@@ -70,14 +70,14 @@ export class ViewerComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadIpAddress(): void {
-    debugger
-    this.http.get('../../../../../projectSettings.json', { responseType: 'text' })  // Fetch as text
-      .subscribe(
-        data => this.ipAddress = data,  // Assign the IP address
-        error => console.error('Error loading the IP address text file', error)
-      );
-  }
+  // loadIpAddress(): void {
+  //   debugger
+  //   this.http.get('../../../../../projectSettings.json', { responseType: 'text' })  // Fetch as text
+  //     .subscribe(
+  //       data => this.ipAddress = data,  // Assign the IP address
+  //       error => console.error('Error loading the IP address text file', error)
+  //     );
+  // }
 
   switchSubtitleTrack(trackLabel: string) {
     debugger

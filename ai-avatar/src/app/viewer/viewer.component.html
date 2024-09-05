@@ -1,10 +1,12 @@
 <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet">
+<div class="video-container">
 <video #videoPlayer id="my-video" muted class="video-js" >
 
-  <source src="http://192.168.0.106:3000/sample_video.mp4" type="video/mp4">
+  <source src="http://192.168.0.105:3000/sample_video.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-<div class="track-controls">
+</div>
+<!-- <div class="track-controls">
   <button (click)="switchSubtitleTrack('English')">English Subtitles</button>
   <button (click)="switchSubtitleTrack('French')">French Subtitles</button>
 
@@ -15,5 +17,5 @@
     <option value="French">French</option>
     <option value="off">Off</option>
   </select>
-</div>
+</div> -->
 
