@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+.video-js .vjs-big-play-button {
+    left: 50% !important;
+    top: 50% !important
+  }

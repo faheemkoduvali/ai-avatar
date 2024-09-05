@@ -19,6 +19,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   private seekUpdateSubscription!: Subscription;
 
   ipAddress: string = '';
+  shouldPlay: boolean = false;
 
   constructor(private videoControlService: VideoControlService
   ) { }
@@ -27,30 +28,27 @@ export class ViewerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.loadIpAddress();
     this.player = videojs(this.videoPlayer.nativeElement, {
-      controls: true,
+      controls: false,
       autoplay: false,
-      preload: false,
       fluid: true, 
+      bigPlayButton: false,
       tracks: [{
         kind: 'subtitles',
-        src: 'http://192.168.0.105:3000/subtitles-en.vtt',
+        src: 'http://172.18.201.153:3000/subtitles-en.vtt',
         srclang: 'en',
         label: 'English'
       },
       {
         kind: 'subtitles',
-        src: 'http://192.168.0.105:3000/subtitles-fn.vtt',
+        src: 'http://172.18.201.153:3000/subtitles-fn.vtt',
         srclang: 'en',
         label: 'French'
       }],
-      controlBar: {
-        volumePanel: false, 
-        playToggle: false,
-        preload: true
-      }
     });
 
+
     this.playStateSubscription = this.videoControlService.playState$.subscribe((shouldPlay: boolean) => {
+      this.shouldPlay = shouldPlay;
       const video: HTMLVideoElement = this.videoPlayer.nativeElement;
       if (shouldPlay) {
         video.play().then(() => console.log('Viewer video playing')).catch(err => console.error('Error playing video', err));
@@ -61,17 +59,49 @@ export class ViewerComponent implements OnInit, OnDestroy {
     });
 
     this.videoControlService.listenToSeekUpdates((currentTime: number) => {
-      debugger
+      
       // Update the current time only if the difference is significant to avoid rapid seeks
       const currentViewerTime = this.player.currentTime();
+      const video: HTMLVideoElement = this.videoPlayer.nativeElement;
       if (Math.abs(currentViewerTime - currentTime) > 0.5) {
         this.player.currentTime(currentTime);
+        if (this.shouldPlay) {
+          video.play().then(() => console.log('Viewer video playing')).catch(err => console.error('Error playing video', err));
+        } else {
+          video.pause();
+          console.log('Viewer video paused');
+        }
       }
+      
     });
+    // this.videoControlService.listenToControls((data: any) => {
+    //   const controlData = JSON.parse(data);
+    //   // Update the current time only if the difference is significant to avoid rapid seeks
+    //   const currentViewerTime = this.player.currentTime();
+    //   const video: HTMLVideoElement = this.videoPlayer.nativeElement;
+    //   if (Math.abs(currentViewerTime - controlData.seekTime) > 0.5 && controlData.seekTime) {
+    //     this.player.currentTime(controlData.seekTime);
+    //   }
+    //   if (controlData.shouldPlay) {
+    //     video.play();
+    //   } else {
+    //     video.pause();
+    //   }
+    // });
+
+    this.player.ready(() => {
+      this.player.play = () => {
+        console.log('Play functionality is disabled.');
+      };
+      this.player.pause = () => {
+        console.log('Pause functionality is disabled.');
+      };
+    });
+
   }
 
   // loadIpAddress(): void {
-  //   debugger
+  //   
   //   this.http.get('../../../../../projectSettings.json', { responseType: 'text' })  // Fetch as text
   //     .subscribe(
   //       data => this.ipAddress = data,  // Assign the IP address
@@ -80,7 +110,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   // }
 
   switchSubtitleTrack(trackLabel: string) {
-    debugger
+    
     const video = this.player;
     const tracks = video.textTracks();
 

@@ -12,6 +12,9 @@ export class ControllerComponent {
   @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
   player!: ReturnType<typeof videojs>;
 
+  private intervalId: any;
+  isPlaying: boolean = false;
+
   constructor(private videoControlService: VideoControlService) {}
 
   ngOnInit(): void {
@@ -30,20 +33,47 @@ export class ControllerComponent {
       fluid: true 
     });
     this.player.on('play', () => {
+      debugger
       const video = this.player;
       video.play();
-      this.videoControlService.emitPlayState(true);  // Emit "play" to WebSocket
+      this.isPlaying = true;
+      const currentTime = this.player.currentTime();
+      this.videoControlService.emitPlayState(true);
+      this.videoControlService.emitCurrentTime(currentTime, this.isPlaying);  // Emit "play" to WebSocket
     });
 
     this.player.on('pause', () => {
+      debugger
       this.player.pause();
-      this.videoControlService.emitPlayState(false);  // Emit "pause" to WebSocket
+      this.isPlaying = true;
+      const currentTime = this.player.currentTime();
+      this.videoControlService.emitPlayState(false);
+      this.videoControlService.emitCurrentTime(currentTime, this.isPlaying);  // Emit "pause" to WebSocket
     });
 
-    this.player.on('timeupdate', () => {
-      const currentTime = this.player.currentTime();
-      this.videoControlService.emitCurrentTime(currentTime);
-    });
+    // this.player.on('timeupdate', () => {
+    //   const currentTime = this.player.currentTime();
+    //   this.videoControlService.emitCurrentTime(currentTime);
+    // });
+    
+    this.startInterval();
+  }
+
+  private startInterval() {
+    this.intervalId = setInterval(() => {
+      this.updateSeekerTime();
+    }, 1000); // 2000 milliseconds = 2 seconds
+  }
+
+  private stopInterval() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  private updateSeekerTime() {
+    const currentTime = this.player.currentTime();
+    this.videoControlService.emitCurrentTime(currentTime, this.isPlaying);
   }
 
 
@@ -51,5 +81,6 @@ export class ControllerComponent {
     if (this.player) {
       this.player.dispose();
     }
+    this.stopInterval();
   }
 }

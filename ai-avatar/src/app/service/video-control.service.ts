@@ -16,15 +16,11 @@ export class VideoControlService {
 
   constructor() {
     // Connect to the WebSocket server
-    this.socket = io('http://192.168.0.105:3005'); // Replace with your WebSocket server URL
+    this.socket = io('http://172.18.201.153:3005'); // Replace with your WebSocket server URL
 
     // Listen for WebSocket play/pause commands
-    this.socket.on('video-control', (command: string) => {
-      if (command === 'play') {
-        this.playStateSubject.next(true);
-      } else if (command === 'pause') {
-        this.playStateSubject.next(false);
-      }
+    this.socket.on('video-control', (shouldPlay: boolean) => {
+      this.playStateSubject.next(shouldPlay);
     });
 
     // this.socket.on('seek-update', (currentTime: number) => {
@@ -35,11 +31,12 @@ export class VideoControlService {
   // Emit play or pause events to the WebSocket server
   emitPlayState(shouldPlay: boolean): void {
     const command = shouldPlay ? 'play' : 'pause';
-    this.socket.emit('video-control', command);
+    this.socket.emit('video-control', shouldPlay);
   }
 
-  emitCurrentTime(currentTime: number | undefined): void {
-    this.socket.emit('seek-update', currentTime);
+  emitCurrentTime(seekTime: number | undefined, shouldPlay: boolean): void {
+    this.socket.emit('seek-update', seekTime);
+    this.socket.emit('video-control', shouldPlay);
   }
 
   // Listen for seek time from the WebSocket
