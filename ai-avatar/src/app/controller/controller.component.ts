@@ -33,28 +33,19 @@ export class ControllerComponent {
       fluid: true 
     });
     this.player.on('play', () => {
-      debugger
       const video = this.player;
       video.play();
       this.isPlaying = true;
       const currentTime = this.player.currentTime();
       this.videoControlService.emitPlayState(true);
-      this.videoControlService.emitCurrentTime(currentTime, this.isPlaying);  // Emit "play" to WebSocket
     });
 
     this.player.on('pause', () => {
-      debugger
       this.player.pause();
-      this.isPlaying = true;
+      this.isPlaying = false;
       const currentTime = this.player.currentTime();
       this.videoControlService.emitPlayState(false);
-      this.videoControlService.emitCurrentTime(currentTime, this.isPlaying);  // Emit "pause" to WebSocket
     });
-
-    // this.player.on('timeupdate', () => {
-    //   const currentTime = this.player.currentTime();
-    //   this.videoControlService.emitCurrentTime(currentTime);
-    // });
     
     this.startInterval();
   }
@@ -73,7 +64,8 @@ export class ControllerComponent {
 
   private updateSeekerTime() {
     const currentTime = this.player.currentTime();
-    this.videoControlService.emitCurrentTime(currentTime, this.isPlaying);
+    this.videoControlService.emitCurrentTime(currentTime);
+    this.videoControlService.emitPlayState(this.isPlaying);
   }
 
 

@@ -14,6 +14,11 @@ export class VideoControlService {
   // private seekerTimeSubject = new BehaviorSubject<number>(0);
   // seekerTime$ = this.seekerTimeSubject.asObservable();
 
+  data:any = {
+    shouldPlay: false,
+    seekTime: 0
+  }
+
   constructor() {
     // Connect to the WebSocket server
     this.socket = io('http://172.18.200.117:3005'); // Replace with your WebSocket server URL
@@ -22,10 +27,6 @@ export class VideoControlService {
     this.socket.on('video-control', (shouldPlay: boolean) => {
       this.playStateSubject.next(shouldPlay);
     });
-
-    // this.socket.on('seek-update', (currentTime: number) => {
-    //   this.seekerTimeSubject.next(currentTime)
-    // });
   }
 
   // Emit play or pause events to the WebSocket server
@@ -34,9 +35,8 @@ export class VideoControlService {
     this.socket.emit('video-control', shouldPlay);
   }
 
-  emitCurrentTime(seekTime: number | undefined, shouldPlay: boolean): void {
+  emitCurrentTime(seekTime: number | undefined): void {
     this.socket.emit('seek-update', seekTime);
-    this.socket.emit('video-control', shouldPlay);
   }
 
   // Listen for seek time from the WebSocket
@@ -46,4 +46,5 @@ export class VideoControlService {
       callback(currentTime);
     });
   }
+  
 }

@@ -74,20 +74,24 @@ export class ViewerComponent implements OnInit, OnDestroy {
       }
 
     });
-    // this.videoControlService.listenToControls((data: any) => {
-    //   const controlData = JSON.parse(data);
-    //   // Update the current time only if the difference is significant to avoid rapid seeks
+    // debugger
+    // this.videoControlService.listenToControl((shouldPlay: boolean, seekTime: number) => {
+    //   debugger;
+    
     //   const currentViewerTime = this.player.currentTime();
     //   const video: HTMLVideoElement = this.videoPlayer.nativeElement;
-    //   if (Math.abs(currentViewerTime - controlData.seekTime) > 0.5 && controlData.seekTime) {
-    //     this.player.currentTime(controlData.seekTime);
+    
+    //   if (Math.abs(currentViewerTime - seekTime) > 0.5 && seekTime) {
+    //     this.player.currentTime(seekTime);
     //   }
-    //   if (controlData.shouldPlay) {
+    
+    //   if (shouldPlay) {
     //     video.play();
     //   } else {
     //     video.pause();
     //   }
     // });
+    
 
     this.player.ready(() => {
       this.player.play = () => {
