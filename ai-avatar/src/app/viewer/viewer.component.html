@@ -2,9 +2,17 @@
 <div class="video-container">
 <video #videoPlayer id="my-video" muted class="video-js" >
 
-  <source src="http://172.18.201.153:3000/sample_video.mp4" type="video/mp4">
+  <source src="http://172.18.200.117:3000/sample_video.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+<div class="dropdown">
+  <button class="dropdown-toggle">CC</button>
+  <div class="dropdown-menu">
+   <a (click)="switchSubtitleTrack($event)" data-lang="English">English</a>
+    <a (click)="switchSubtitleTrack($event)" data-lang="French">French</a>
+    <a (click)="switchSubtitleTrack($event)" data-lang="off">Off</a>
+  </div>
+</div>
 </div>
 <!-- <div class="track-controls">
   <button (click)="switchSubtitleTrack('English')">English Subtitles</button>

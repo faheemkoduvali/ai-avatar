@@ -28,19 +28,19 @@ export class ViewerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.loadIpAddress();
     this.player = videojs(this.videoPlayer.nativeElement, {
-      controls: false,
+      controls: true,
       autoplay: false,
-      fluid: true, 
+      fluid: true,
       bigPlayButton: false,
       tracks: [{
         kind: 'subtitles',
-        src: 'http://172.18.201.153:3000/subtitles-en.vtt',
+        src: 'http://172.18.200.117:3000/subtitles-en.vtt',
         srclang: 'en',
         label: 'English'
       },
       {
         kind: 'subtitles',
-        src: 'http://172.18.201.153:3000/subtitles-fn.vtt',
+        src: 'http://172.18.200.117:3000/subtitles-fn.vtt',
         srclang: 'en',
         label: 'French'
       }],
@@ -59,7 +59,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     });
 
     this.videoControlService.listenToSeekUpdates((currentTime: number) => {
-      
+
       // Update the current time only if the difference is significant to avoid rapid seeks
       const currentViewerTime = this.player.currentTime();
       const video: HTMLVideoElement = this.videoPlayer.nativeElement;
@@ -72,7 +72,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
           console.log('Viewer video paused');
         }
       }
-      
+
     });
     // this.videoControlService.listenToControls((data: any) => {
     //   const controlData = JSON.parse(data);
@@ -109,17 +109,20 @@ export class ViewerComponent implements OnInit, OnDestroy {
   //     );
   // }
 
-  switchSubtitleTrack(trackLabel: string) {
-    
+  switchSubtitleTrack(event: any) {
+    const trackLabel = event.target.getAttribute('data-lang');  // Get the language from the data-lang attribute
+
     const video = this.player;
     const tracks = video.textTracks();
 
     for (let i = 0; i < tracks.length; i++) {
       const track = tracks[i] as TextTrack;
-      if (track.label === trackLabel) {
-        track.mode = 'showing';  // Show this track
+      if (trackLabel === 'off') {
+        track.mode = 'disabled';  // Turn off subtitles if "off" is selected
+      } else if (track.label === trackLabel) {
+        track.mode = 'showing';  // Show the selected track
       } else {
-        track.mode = 'disabled'; // Disable other tracks
+        track.mode = 'disabled';  // Disable other tracks
       }
     }
   }
