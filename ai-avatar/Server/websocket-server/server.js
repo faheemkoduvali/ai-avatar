@@ -29,5 +29,5 @@ io.on('connection', (socket) => {
 
 const PORT = 3005;
 server.listen(PORT, () => {
-  console.log(`WebSocket server running on http://172.18.200.117:${PORT}`);
+  console.log(`WebSocket server running on http://192.168.0.111:${PORT}`);
 });

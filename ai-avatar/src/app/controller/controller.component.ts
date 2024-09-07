@@ -10,7 +10,7 @@ import videojs from 'video.js';
 export class ControllerComponent {
 
   @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
-  player!: ReturnType<typeof videojs>;
+  player!: ReturnType<typeof videojs> | any;
 
   private intervalId: any;
   isPlaying: boolean = false;
@@ -23,14 +23,29 @@ export class ControllerComponent {
       controls: true,
       autoplay: false,
       preload: 'auto',
+      tracks: [{
+        kind: 'subtitles',
+        src: 'http://192.168.0.111:3000/subtitles-en.vtt',
+        srclang: 'en',
+        label: 'English'
+      },
+      {
+        kind: 'subtitles',
+        src: 'http://192.168.0.111:3000/subtitles-fn.vtt',
+        srclang: 'en',
+        label: 'French'
+      }],
       controlBar: {
         fullscreenToggle: true, // Keep fullscreen toggle
         playToggle: true, // Show play/pause button
         currentTimeDisplay: true, // Show current time
         durationDisplay: true, // Show duration
         progressControl: true, // Show progress bar
+        subsCapsButton: false, // Remove the CC button for subtitles/captions
+
       },
       fluid: true 
+      
     });
     this.player.on('play', () => {
       const video = this.player;
@@ -67,7 +82,23 @@ export class ControllerComponent {
     this.videoControlService.emitCurrentTime(currentTime);
     this.videoControlService.emitPlayState(this.isPlaying);
   }
+  switchSubtitleTrack(selectedValue: string) {
+    debugger;
+    const trackLabel = selectedValue;  // Get the selected value from the dropdown
+    const video = this.player;
+    const tracks = video.textTracks();
 
+    for (let i = 0; i < tracks.length; i++) {
+      const track = tracks[i] as TextTrack;
+      if (trackLabel === 'off') {
+        track.mode = 'disabled';  // Turn off subtitles if "off" is selected
+      } else if (track.label === trackLabel) {
+        track.mode = 'showing';  // Show the selected track
+      } else {
+        track.mode = 'disabled';  // Disable other tracks
+      }
+    }
+  }
 
   ngOnDestroy(): void {
     if (this.player) {

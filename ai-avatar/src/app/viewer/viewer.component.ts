@@ -20,7 +20,13 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   ipAddress: string = '';
   shouldPlay: boolean = false;
+  subtitleTracks = [
+    { label: 'English', lang: 'English' },
+    { label: 'French', lang: 'French' },
+    { label: 'Off', lang: 'off' }
+  ];
 
+  selectedSubtitle = 'off';  // Default to 'off'
   constructor(private videoControlService: VideoControlService
   ) { }
 
@@ -28,19 +34,26 @@ export class ViewerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.loadIpAddress();
     this.player = videojs(this.videoPlayer.nativeElement, {
-      controls: true,
+      controls: false,
       autoplay: false,
       fluid: true,
       bigPlayButton: false,
+      controlBar: {
+        fullscreenToggle: true, // Keep fullscreen toggle
+        playToggle: true, // Show play/pause button
+        currentTimeDisplay: true, // Show current time
+        durationDisplay: true, // Show duration
+        progressControl: true, // Show progress bar
+      },
       tracks: [{
         kind: 'subtitles',
-        src: 'http://172.18.200.117:3000/subtitles-en.vtt',
+        src: 'http://192.168.0.111:3000/subtitles-en.vtt',
         srclang: 'en',
         label: 'English'
       },
       {
         kind: 'subtitles',
-        src: 'http://172.18.200.117:3000/subtitles-fn.vtt',
+        src: 'http://192.168.0.111:3000/subtitles-fn.vtt',
         srclang: 'en',
         label: 'French'
       }],
@@ -77,21 +90,21 @@ export class ViewerComponent implements OnInit, OnDestroy {
     // debugger
     // this.videoControlService.listenToControl((shouldPlay: boolean, seekTime: number) => {
     //   debugger;
-    
+
     //   const currentViewerTime = this.player.currentTime();
     //   const video: HTMLVideoElement = this.videoPlayer.nativeElement;
-    
+
     //   if (Math.abs(currentViewerTime - seekTime) > 0.5 && seekTime) {
     //     this.player.currentTime(seekTime);
     //   }
-    
+
     //   if (shouldPlay) {
     //     video.play();
     //   } else {
     //     video.pause();
     //   }
     // });
-    
+
 
     this.player.ready(() => {
       this.player.play = () => {
@@ -113,9 +126,26 @@ export class ViewerComponent implements OnInit, OnDestroy {
   //     );
   // }
 
-  switchSubtitleTrack(event: any) {
-    const trackLabel = event.target.getAttribute('data-lang');  // Get the language from the data-lang attribute
+  // switchSubtitleTrack(event: any) {
+  //   const trackLabel = event.target.getAttribute('data-lang');  // Get the language from the data-lang attribute
 
+  //   const video = this.player;
+  //   const tracks = video.textTracks();
+
+  //   for (let i = 0; i < tracks.length; i++) {
+  //     const track = tracks[i] as TextTrack;
+  //     if (trackLabel === 'off') {
+  //       track.mode = 'disabled';  // Turn off subtitles if "off" is selected
+  //     } else if (track.label === trackLabel) {
+  //       track.mode = 'showing';  // Show the selected track
+  //     } else {
+  //       track.mode = 'disabled';  // Disable other tracks
+  //     }
+  //   }
+  // }
+  switchSubtitleTrack(selectedValue: string) {
+    debugger;
+    const trackLabel = selectedValue;  // Get the selected value from the dropdown
     const video = this.player;
     const tracks = video.textTracks();
 
@@ -130,6 +160,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
       }
     }
   }
+
   ngOnDestroy(): void {
     if (this.player) {
       this.player.dispose();

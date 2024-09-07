@@ -1,11 +1,25 @@
 <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet">
 <div class="video-container">
-<video #videoPlayer id="my-video" muted class="video-js" >
+  <video #videoPlayer id="my-video" muted class="video-js">
 
-  <source src="http://172.18.200.117:3000/sample_video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-<div class="dropdown">
+    <source src="http://192.168.0.111:3000/sample_video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="dropdown">
+    <label for="subtitleSelect">Choose Subtitle:</label>
+    <select id="subtitleSelect" (change)="switchSubtitleTrack($any($event.target).value)">
+      <option value="" hidden>Choose Subtitles</option> <!-- Default option -->
+      <option value="English">English</option>
+      <option value="French">French</option>
+      <option value="Spanish">Spanish</option>
+      <option value="off">Off</option>
+    </select>
+  </div>
+</div>
+
+<!--dropdown types
+ <div class="dropdown">
   <button class="dropdown-toggle">CC</button>
   <div class="dropdown-menu">
    <a (click)="switchSubtitleTrack($event)" data-lang="English">English</a>
@@ -13,8 +27,9 @@
     <a (click)="switchSubtitleTrack($event)" data-lang="off">Off</a>
   </div>
 </div>
-</div>
-<!-- <div class="track-controls">
+</div> 
+
+<div class="track-controls">
   <button (click)="switchSubtitleTrack('English')">English Subtitles</button>
   <button (click)="switchSubtitleTrack('French')">French Subtitles</button>
 
@@ -26,4 +41,3 @@
     <option value="off">Off</option>
   </select>
 </div> -->
-
