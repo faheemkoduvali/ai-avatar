@@ -1,22 +1,23 @@
 <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet">
 <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
 
-
   <!-- Video Player Section -->
   <div class="video-container">
     <video #videoPlayer id="my-video" class="video-js vjs-fill vjs-fluid" controls preload="auto" data-setup='{}'>
-      <source src="http://192.168.0.111:3000/sample_video.mp4" type="video/mp4" />
+      <source src="http://172.18.200.117:3000/Apple_Pro_Launch.mp4" type="video/mp4" />
       <p class="vjs-no-js">
         To view this video please enable JavaScript, and consider upgrading to a web browser that
         <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
       </p>
     </video>
     <div class="dropdown">
-      <label for="subtitleSelect">Choose Subtitle:</label>
       <select id="subtitleSelect" (change)="switchSubtitleTrack($any($event.target).value)">
         <option value="" hidden>Choose Subtitles</option> <!-- Default option -->
         <option value="English">English</option>
+        <option value="French">Arabic</option>
         <option value="French">French</option>
+        <option value="French">Dutch</option>
+        <option value="French">German</option>
         <option value="Spanish">Spanish</option>
         <option value="off">Off</option>
       </select>

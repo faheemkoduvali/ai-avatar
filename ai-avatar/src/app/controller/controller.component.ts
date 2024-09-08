@@ -15,7 +15,7 @@ export class ControllerComponent {
   private intervalId: any;
   isPlaying: boolean = false;
 
-  constructor(private videoControlService: VideoControlService) {}
+  constructor(private videoControlService: VideoControlService) { }
 
   ngOnInit(): void {
     // Initialize Video.js player
@@ -25,13 +25,13 @@ export class ControllerComponent {
       preload: 'auto',
       tracks: [{
         kind: 'subtitles',
-        src: 'http://192.168.0.111:3000/subtitles-en.vtt',
+        src: 'http://172.18.200.117:3000/subtitles-en.vtt',
         srclang: 'en',
         label: 'English'
       },
       {
         kind: 'subtitles',
-        src: 'http://192.168.0.111:3000/subtitles-fn.vtt',
+        src: 'http://172.18.200.117:3000/subtitles-fn.vtt',
         srclang: 'en',
         label: 'French'
       }],
@@ -44,8 +44,8 @@ export class ControllerComponent {
         subsCapsButton: false, // Remove the CC button for subtitles/captions
 
       },
-      fluid: true 
-      
+      fluid: true
+
     });
     this.player.on('play', () => {
       const video = this.player;
@@ -61,7 +61,7 @@ export class ControllerComponent {
       const currentTime = this.player.currentTime();
       this.videoControlService.emitPlayState(false);
     });
-    
+
     this.startInterval();
   }
 
@@ -83,7 +83,6 @@ export class ControllerComponent {
     this.videoControlService.emitPlayState(this.isPlaying);
   }
   switchSubtitleTrack(selectedValue: string) {
-    debugger;
     const trackLabel = selectedValue;  // Get the selected value from the dropdown
     const video = this.player;
     const tracks = video.textTracks();

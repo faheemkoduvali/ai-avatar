@@ -20,11 +20,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   ipAddress: string = '';
   shouldPlay: boolean = false;
-  subtitleTracks = [
-    { label: 'English', lang: 'English' },
-    { label: 'French', lang: 'French' },
-    { label: 'Off', lang: 'off' }
-  ];
 
   selectedSubtitle = 'off';  // Default to 'off'
   constructor(private videoControlService: VideoControlService
@@ -47,13 +42,13 @@ export class ViewerComponent implements OnInit, OnDestroy {
       },
       tracks: [{
         kind: 'subtitles',
-        src: 'http://192.168.0.111:3000/subtitles-en.vtt',
+        src: 'http://172.18.200.117:3000/subtitles-en.vtt',
         srclang: 'en',
         label: 'English'
       },
       {
         kind: 'subtitles',
-        src: 'http://192.168.0.111:3000/subtitles-fn.vtt',
+        src: 'http://172.18.200.117:3000/subtitles-fn.vtt',
         srclang: 'en',
         label: 'French'
       }],
@@ -87,7 +82,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
       }
 
     });
-    // debugger
     // this.videoControlService.listenToControl((shouldPlay: boolean, seekTime: number) => {
     //   debugger;
 
@@ -144,7 +138,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
   //   }
   // }
   switchSubtitleTrack(selectedValue: string) {
-    debugger;
     const trackLabel = selectedValue;  // Get the selected value from the dropdown
     const video = this.player;
     const tracks = video.textTracks();

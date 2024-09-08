@@ -21,7 +21,7 @@ export class VideoControlService {
 
   constructor() {
     // Connect to the WebSocket server
-    this.socket = io('http://192.168.0.111:3005'); // Replace with your WebSocket server URL
+    this.socket = io('http://172.18.200.117:3005'); // Replace with your WebSocket server URL
 
     // Listen for WebSocket play/pause commands
     this.socket.on('video-control', (shouldPlay: boolean) => {
@@ -41,7 +41,6 @@ export class VideoControlService {
 
   // Listen for seek time from the WebSocket
   listenToSeekUpdates(callback: (time: number) => void): void {
-    debugger
     this.socket.on('seek-update', (currentTime: number) => {
       callback(currentTime);
     });
