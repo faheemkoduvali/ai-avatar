@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { VideoControlService } from '../service/video-control.service';
 import videojs from 'video.js';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-controller',
@@ -14,6 +15,8 @@ export class ControllerComponent {
 
   private intervalId: any;
   isPlaying: boolean = false;
+  serverUrl: string = environment.serverUrl;
+  videoUrl: string = ''
 
   constructor(private videoControlService: VideoControlService) {}
 
@@ -44,9 +47,9 @@ export class ControllerComponent {
         subsCapsButton: false, // Remove the CC button for subtitles/captions
 
       },
-      fluid: true 
-      
+      fluid: true
     });
+    this.videoUrl = "http://192.168.0.102:3000/sample_video.mp4";
     this.player.on('play', () => {
       const video = this.player;
       video.play();
@@ -61,14 +64,19 @@ export class ControllerComponent {
       const currentTime = this.player.currentTime();
       this.videoControlService.emitPlayState(false);
     });
-    
+    this.player.load();
     this.startInterval();
   }
 
+  ngAfterViewInit() {
+    this.videoPlayer.nativeElement.src = this.videoUrl;
+    this.videoPlayer.nativeElement.load();
+  }
+  
   private startInterval() {
     this.intervalId = setInterval(() => {
       this.updateSeekerTime();
-    }, 1000); // 2000 milliseconds = 2 seconds
+    }, 500); // 2000 milliseconds = 2 seconds
   }
 
   private stopInterval() {

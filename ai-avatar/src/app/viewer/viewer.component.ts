@@ -4,6 +4,7 @@ import { VideoControlService } from '../service/video-control.service';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-viewer',
@@ -25,6 +26,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     { label: 'French', lang: 'French' },
     { label: 'Off', lang: 'off' }
   ];
+  serverUrl: string = environment.serverUrl;
 
   selectedSubtitle = 'off';  // Default to 'off'
   constructor(private videoControlService: VideoControlService
@@ -40,15 +42,21 @@ export class ViewerComponent implements OnInit, OnDestroy {
       bigPlayButton: false,
       tracks: [{
         kind: 'subtitles',
-        src: 'http://192.168.0.111:3000/subtitles-en.vtt',
+        src: 'assets/subtitles-en.srt',
         srclang: 'en',
         label: 'English'
       },
       {
         kind: 'subtitles',
-        src: 'http://192.168.0.111:3000/subtitles-fn.vtt',
+        src: 'assets/subtitles-fn.srt',
         srclang: 'en',
         label: 'French'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/subtitles-es.srt',
+        srclang: 'es',
+        label: 'Spanish'
       }],
     });
 

@@ -1,0 +1,118 @@
+1
+00:00:00,000 --> 00:00:05,000
+Texte de sous-titres pour les 5 premières secondes.
+
+2
+00:00:05,000 --> 00:00:10,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+3
+00:00:10,000 --> 00:00:15,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+4
+00:00:15,000 --> 00:00:20,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+5
+00:00:20,000 --> 00:00:25,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+6
+00:00:25,000 --> 00:00:30,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+7
+00:00:30,000 --> 00:00:35,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+8
+00:00:35,000 --> 00:00:40,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+9
+00:00:40,000 --> 00:00:45,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+10
+00:00:45,000 --> 00:00:50,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+11
+00:00:50,000 --> 00:00:55,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+12
+00:00:55,000 --> 00:01:00,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+13
+00:01:00,000 --> 00:01:05,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+14
+00:01:05,000 --> 00:01:10,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+15
+00:01:10,000 --> 00:01:15,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+16
+00:01:15,000 --> 00:01:20,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+17
+00:01:20,000 --> 00:01:25,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+18
+00:01:25,000 --> 00:01:30,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+19
+00:01:30,000 --> 00:01:35,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+20
+00:01:35,000 --> 00:01:40,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+21
+00:01:40,000 --> 00:01:45,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+22
+00:01:45,000 --> 00:01:50,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+23
+00:01:50,000 --> 00:01:55,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+24
+00:01:55,000 --> 00:02:00,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+25
+00:02:00,000 --> 00:02:05,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+26
+00:02:05,000 --> 00:02:10,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+27
+00:02:10,000 --> 00:02:15,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+28
+00:02:15,000 --> 00:02:20,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+29
+00:02:20,000 --> 00:02:25,000
+Texte de sous-titres pour les 5 secondes suivantes.
+
+30
+00:02:25,000 --> 00:02:

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Socket } from 'socket.io-client';
 import io from 'socket.io-client';  // Default import for io
-
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class VideoControlService {
 
   constructor() {
     // Connect to the WebSocket server
-    this.socket = io('http://192.168.0.111:3005'); // Replace with your WebSocket server URL
+    this.socket = io(environment.serverUrl+':3005'); // Replace with your WebSocket server URL
 
     // Listen for WebSocket play/pause commands
     this.socket.on('video-control', (shouldPlay: boolean) => {
