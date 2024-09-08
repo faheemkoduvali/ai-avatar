@@ -38,13 +38,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
       autoplay: false,
       fluid: true,
       bigPlayButton: false,
-      controlBar: {
-        fullscreenToggle: true, // Keep fullscreen toggle
-        playToggle: true, // Show play/pause button
-        currentTimeDisplay: true, // Show current time
-        durationDisplay: true, // Show duration
-        progressControl: true, // Show progress bar
-      },
       tracks: [{
         kind: 'subtitles',
         src: 'http://192.168.0.111:3000/subtitles-en.vtt',
