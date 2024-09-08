@@ -21,7 +21,7 @@ export class VideoControlService {
 
   constructor() {
     // Connect to the WebSocket server
-    this.socket = io(environment.serverUrl+':3005'); // Replace with your WebSocket server URL
+    this.socket = io('https://ws.aioman.org', { withCredentials: true,  }); // Replace with your WebSocket server URL
 
     // Listen for WebSocket play/pause commands
     this.socket.on('video-control', (shouldPlay: boolean) => {
