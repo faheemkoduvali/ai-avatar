@@ -4,6 +4,7 @@ import { VideoControlService } from '../service/video-control.service';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-viewer',
@@ -20,6 +21,12 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   ipAddress: string = '';
   shouldPlay: boolean = false;
+  subtitleTracks = [
+    { label: 'English', lang: 'English' },
+    { label: 'French', lang: 'French' },
+    { label: 'Off', lang: 'off' }
+  ];
+  serverUrl: string = environment.serverUrl;
 
   selectedSubtitle = 'off';  // Default to 'off'
   constructor(private videoControlService: VideoControlService
@@ -33,24 +40,47 @@ export class ViewerComponent implements OnInit, OnDestroy {
       autoplay: false,
       fluid: true,
       bigPlayButton: false,
-      controlBar: {
-        fullscreenToggle: true, // Keep fullscreen toggle
-        playToggle: true, // Show play/pause button
-        currentTimeDisplay: true, // Show current time
-        durationDisplay: true, // Show duration
-        progressControl: true, // Show progress bar
-      },
       tracks: [{
         kind: 'subtitles',
-        src: 'http://172.18.200.117:3000/subtitles-en.vtt',
+        src: 'assets/english.vtt',
         srclang: 'en',
         label: 'English'
       },
       {
         kind: 'subtitles',
-        src: 'http://172.18.200.117:3000/subtitles-fn.vtt',
+        src: 'assets/french.vtt',
         srclang: 'en',
         label: 'French'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/Arabic.vtt',
+        srclang: 'ar',
+        label: 'Arabic'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/german.vtt',
+        srclang: 'ge',
+        label: 'German'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/russian.vtt',
+        srclang: 'rs',
+        label: 'Russian'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/chinese.vtt',
+        srclang: 'cn',
+        label: 'Chinese'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/spanish.vtt',
+        srclang: 'es',
+        label: 'Spanish'
       }],
     });
 

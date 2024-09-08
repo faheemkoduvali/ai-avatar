@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { VideoControlService } from '../service/video-control.service';
 import videojs from 'video.js';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-controller',
@@ -14,6 +15,8 @@ export class ControllerComponent {
 
   private intervalId: any;
   isPlaying: boolean = false;
+  serverUrl: string = environment.serverUrl;
+  videoUrl: string = ''
 
   constructor(private videoControlService: VideoControlService) { }
 
@@ -25,15 +28,45 @@ export class ControllerComponent {
       preload: 'auto',
       tracks: [{
         kind: 'subtitles',
-        src: 'http://172.18.200.117:3000/subtitles-en.vtt',
+        src: 'assets/english.vtt',
         srclang: 'en',
         label: 'English'
       },
       {
         kind: 'subtitles',
-        src: 'http://172.18.200.117:3000/subtitles-fn.vtt',
+        src: 'assets/french.vtt',
         srclang: 'en',
         label: 'French'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/Arabic.vtt',
+        srclang: 'ar',
+        label: 'Arabic'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/german.vtt',
+        srclang: 'ge',
+        label: 'German'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/russian.vtt',
+        srclang: 'rs',
+        label: 'Russian'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/chinese.vtt',
+        srclang: 'cn',
+        label: 'Chinese'
+      },
+      {
+        kind: 'subtitles',
+        src: 'assets/spanish.vtt',
+        srclang: 'es',
+        label: 'Spanish'
       }],
       controlBar: {
         fullscreenToggle: true, // Keep fullscreen toggle
@@ -45,7 +78,6 @@ export class ControllerComponent {
 
       },
       fluid: true
-
     });
     this.player.on('play', () => {
       const video = this.player;
@@ -61,14 +93,19 @@ export class ControllerComponent {
       const currentTime = this.player.currentTime();
       this.videoControlService.emitPlayState(false);
     });
-
+    this.player.load();
     this.startInterval();
+  }
+
+  ngAfterViewInit() {
+    this.videoPlayer.nativeElement.src = this.videoUrl;
+    this.videoPlayer.nativeElement.load();
   }
 
   private startInterval() {
     this.intervalId = setInterval(() => {
       this.updateSeekerTime();
-    }, 1000); // 2000 milliseconds = 2 seconds
+    }, 500); // 2000 milliseconds = 2 seconds
   }
 
   private stopInterval() {

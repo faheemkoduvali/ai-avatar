@@ -1,0 +1,16 @@
+WEBVTT
+1
+00:00:00,000 --> 00:00:11,820
+Autrefois, chercher un fichier signifiait plonger dans une mer de papiers.
+
+2
+00:00:11,820 --> 00:00:22,860
+Les papiers sont devenus une chose du passé avec la transformation numérique.
+
+3
+00:00:30,000 --> 00:00:41,640
+Transformation numérique.
+
+4
+00:00:41,640 --> 00:00:43,420
+Vision et progrès.

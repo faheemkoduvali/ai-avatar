@@ -6,7 +6,7 @@
     "start:express1": "node Server/file-server/server.js",
     "start:express2": "node Server/websocket-server/server.js",
     "start:angular": "ng serve",
-    "start:all": "concurrently \"npm run start:express1\" \"npm run start:express2\" \"npm run start:angular\"",
+    "start:all": "concurrently \"npm run start:express2\" \"npm run start:angular\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

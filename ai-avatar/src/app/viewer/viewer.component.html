@@ -2,7 +2,7 @@
 <div class="video-container">
   <video #videoPlayer id="my-video" muted class="video-js">
 
-    <source src="http://172.18.200.117:3000/Apple_Pro_Launch.mp4" type="video/mp4">
+    <source src="assets/video.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
@@ -11,10 +11,11 @@
     <select id="subtitleSelect" (change)="switchSubtitleTrack($any($event.target).value)">
       <option value="" hidden>Choose Subtitles</option> <!-- Default option -->
       <option value="English">English</option>
-      <option value="French">Arabic</option>
+      <option value="Arabic">Arabic</option>
       <option value="French">French</option>
-      <option value="French">Dutch</option>
-      <option value="French">German</option>
+      <option value="Chinese">Chinese</option>
+      <option value="German">German</option>
+      <option value="Russian">Russian</option>
       <option value="Spanish">Spanish</option>
       <option value="off">Off</option>
     </select>

@@ -1,0 +1,16 @@
+WEBVTT
+1
+00:00:00,000 --> 00:00:11,820
+Früher bedeutete die Suche nach einer Datei, in einem Meer von Papier zu tauchen.
+
+2
+00:00:11,820 --> 00:00:22,860
+Mit der digitalen Transformation sind Papiere Vergangenheit geworden.
+
+3
+00:00:30,000 --> 00:00:41,640
+Digitale Transformation.
+
+4
+00:00:41,640 --> 00:00:43,420
+Vision und Fortschritt.
